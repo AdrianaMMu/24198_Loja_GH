@@ -4,22 +4,22 @@
 
 session_start();
 
-require "../api/auth.php";
+require "../api/auth.php"; // Importa funções relacionadas à autenticação
 
-$error_msg = false;
+$error_msg = false;  // Controle para mostrar mensagem de erro
 $msg = "";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") { // Verifica se o formulário foi submetido
 
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    if (empty($username) || empty($password)) {
+    if (empty($username) || empty($password)) { // Valida se campos não estão vazios
         $error_msg = true;
         $msg = "Preencha todos os campos";
     } else {
 
-        if (login($username, $password)) {
-            header("Location: ../index.php");
+        if (login($username, $password)) { // Chama a função login (de auth.php) para autenticar
+            header("Location: ../index.php"); // Se login ok, redireciona para página inicial
         } else {
             $error_msg = true;
             $msg = "O login falhou. Verifique o seu username e password.";

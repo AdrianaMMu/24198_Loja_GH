@@ -1,24 +1,34 @@
 <?php
+// Inclui o arquivo que contém funções de autenticação
 require 'api/auth.php';
 
+// Inicia a sessão para controlar o usuário logado
 session_start();
 
+// Verifica se o usuário está logado, senão redireciona para a página de login
 if(!isset($_SESSION["user"])){
     header("Location: views/login.php");
     exit();
 }
 
+// Inclui o arquivo que contém a conexão com o banco de dados
 require 'api/db.php';
 
-// IF Ternario
+// Obtém o parâmetro 'search' da URL, protege contra SQL Injection com real_escape_string
 $search = isset($_GET['search']) ? $con->real_escape_string($_GET['search']) : '';
 
+// Monta a query SQL para buscar produtos
 $sql = "SELECT id, nome, descricao, preco, imagem FROM produto";
+
+// Se foi feita uma busca, adiciona filtro na query para nome ou descrição contendo o termo
 if ($search !== '') {
     $sql .= " WHERE nome LIKE '%$search%' OR descricao LIKE '%$search%'";
 }
+
+// Executa a query no banco de dados
 $result = $con->query($sql);
 
+// Inicializa array para armazenar os produtos retornados
 $produtos = [];
 if ($result && $result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
@@ -203,7 +213,7 @@ if ($result && $result->num_rows > 0) {
                             <strong class="text-success">€<?php echo number_format($produto['preco'], 2, ',', '.'); ?></strong>
                             <form method="post" action="api/add_to_cart.php" class="mt-3 d-flex align-items-center gap-2">
                                 <input type="hidden" name="produto_id" value="<?php echo $produto['id']; ?>">
-                                <input type="number" name="quantidade" value="1" min="1" class="form-control form-control-sm" style="width: 70px;">
+                                <input type="number" name="quantidade" value="1" min="1" class="for m-control form-control-sm" style="width: 70px;">
                                 <button type="submit" class="btn btn-primary">Adicionar ao carrinho</button>
                             </form>
                         </div>

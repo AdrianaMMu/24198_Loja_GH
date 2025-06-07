@@ -12,6 +12,7 @@ require 'email.php';
  */
 function login($userinput,$password){  
     global $con;
+    // Prepara a query para buscar utilizador ativo com username ou email correspondentes
     $sql = $con->prepare("SELECT * FROM Utilizador WHERE (username = ? OR email = ?) AND active = 1");
     $sql->bind_param('ss',$userinput,$userinput);
     $sql->execute();

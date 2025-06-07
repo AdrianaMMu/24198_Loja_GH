@@ -1,7 +1,13 @@
 <?php
+// Inicia a sessão PHP para manipulação de variáveis de sessão do usuário
     session_start();
+
+    // Importa o arquivo de autenticação, que possui a função isAdmin()
     require '../api/auth.php';
+
+    // Verifica se o usuário atual é administrador
     if( !isAdmin() ){
+            // Se não for admin, redireciona para a página inicial e encerra o script
         header("Location: ../index.php");
         exit();
     }

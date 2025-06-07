@@ -2,6 +2,8 @@
 require "../api/auth.php";
 $error_msg = false;
 $msg = "";
+
+// Verifica se o formulário foi submetido via método POST e se todos os campos esperados estão definidos
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["telemovel"]) && isset($_POST["nif"]) && isset($_POST["password"]) && isset($_POST["confirm_password"])) {
     //Ver se os campos estão preenchidos
     if (empty($_POST["username"])) {
@@ -28,6 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($
         $error_msg = true;
         $msg .= "Preencha o campo confirmar password.";
     }
+
+        // Verifica se as passwords coincidem
     if ($_POST["password"] != $_POST["confirm_password"]) {
         $error_msg = true;
         $msg .= "As passwords não coincidem.";

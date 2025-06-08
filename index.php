@@ -144,6 +144,19 @@ if ($result && $result->num_rows > 0) {
             background-color: #005c85;
         }
 
+        .card-img-top {
+    height: 180px;         /* altura fixa */
+    width: 100%;           /* largura total do card */
+    object-fit: contain;   /* redimensiona mantendo a proporção, sem cortar */
+    background-color: #f0f0f0; /* opcional, cor de fundo para as áreas vazias */
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+        }
+
+        .card {
+    max-height: 380px;      /* limita altura máxima do card, opcional */
+    overflow: hidden;       /* esconde o conteúdo que ultrapassar a altura */}
+
         /* Form de busca */
         .search-row {
             margin-bottom: 2rem;
